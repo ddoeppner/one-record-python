@@ -11,17 +11,9 @@
 > This standard defines a common data model for the data that is shared via standardized and secured web API.
 > (Source: [IATA - ONE Record](https://www.iata.org/one-record/))
 
-## ONE Record Version Support
-
-| ONE Record with Python | IATA Data Model Ontology                                                                                                                                  | IATA API Ontology                                                                                                                                        | IATA API Spec                                                                                                    |
-|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
-| v0.1.0               | [v2.0.0](https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/eb404f134c18f8aac0bfe51666c081ba971f3c4d/working_draft/ontology/IATA-1R-DM-Ontology.ttl) | [v1.1](https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/eb404f134c18f8aac0bfe51666c081ba971f3c4d/working_draft/ontology/IATA-1R-API-Ontology.ttl) | [v1.1](https://github.com/IATA-Cargo/ONE-Record/tree/706b01f81e7b4618b6ec84fdb38bfd2ff6a1e3e8/working_draft/API) |
-| ...                   | ...                                                                                                                                                       | ...                                                                                                                                                      | ...                                                                                                              |
-| ...                   | ...                                                                                                                                                       | ...                                                                                                                                                      | ...                                                                                                              |
-
 ---
 
-## Requierements
+## Requirements
 - Python version 3.9+
 
 ---
@@ -59,8 +51,17 @@ print(piece.id)
 #> http://localhost:8080/companies/cgnbeerbrewery/los/piece-1067358949
 ```
 
+---
 
+## ONE Record Version Support
 
+| ONE Record with Python | IATA Data Model Ontology                                                                                                                                  | IATA API Ontology                                                                                                                                        | IATA API Spec                                                                                                    |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| v0.1.0               | [v2.0.0](https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/eb404f134c18f8aac0bfe51666c081ba971f3c4d/working_draft/ontology/IATA-1R-DM-Ontology.ttl) | [v1.1](https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/eb404f134c18f8aac0bfe51666c081ba971f3c4d/working_draft/ontology/IATA-1R-API-Ontology.ttl) | [v1.1](https://github.com/IATA-Cargo/ONE-Record/tree/706b01f81e7b4618b6ec84fdb38bfd2ff6a1e3e8/working_draft/API) |
+| ...                   | ...                                                                                                                                                       | ...                                                                                                                                                      | ...                                                                                                              |
+| ...                   | ...                                                                                                                                                       | ...                                                                                                                                                      | ...                                                                                                              |
+
+---
 
 ## Dependencies
 
