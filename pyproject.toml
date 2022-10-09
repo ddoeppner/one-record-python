@@ -6,9 +6,9 @@ build-backend = "hatchling.build"
 name = "onerecord"
 version = "0.1.0"
 authors = [
-    "Daniel A. Doeppner"
+    { name = "Daniel A. Doeppner", email = "daniel@leetly.com" }
 ]
-description = "ONE Record for Python"
+description = "ONE Record with Python"
 readme = "README.md"
 requires-python = ">=3.9"
 license = 'MIT'
@@ -20,8 +20,8 @@ classifiers = [
     'Programming Language :: Python :: 3.11',
     'Intended Audience :: Developers',
     'Intended Audience :: Information Technology',
-    'Intended Audience :: Logistics',
-    'Intended Audience :: Consultants',
+    'Intended Audience :: Science/Research',
+    'Intended Audience :: Other Audience',
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Topic :: Software Development :: Libraries :: Application Frameworks",

@@ -1,4 +1,4 @@
-# ONE Record for Python
+# ONE Record with Python
 ![Made with love for Digital Cargo](https://img.shields.io/badge/Made%20with%20%E2%9D%A4%20for-Digital%20Cargo-informational)
 [![GitHub](https://img.shields.io/github/license/leoll2/copyright_notice_precommit)](https://opensource.org/licenses/MIT)
 [![Python Version](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/)
@@ -13,7 +13,7 @@
 
 ## ONE Record Version Support
 
-| ONE Record for Python | IATA Data Model Ontology                                                                                                                                  | IATA API Ontology                                                                                                                                        | IATA API Spec                                                                                                    |
+| ONE Record with Python | IATA Data Model Ontology                                                                                                                                  | IATA API Ontology                                                                                                                                        | IATA API Spec                                                                                                    |
 |-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
 | v0.1.0               | [v2.0.0](https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/eb404f134c18f8aac0bfe51666c081ba971f3c4d/working_draft/ontology/IATA-1R-DM-Ontology.ttl) | [v1.1](https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/eb404f134c18f8aac0bfe51666c081ba971f3c4d/working_draft/ontology/IATA-1R-API-Ontology.ttl) | [v1.1](https://github.com/IATA-Cargo/ONE-Record/tree/706b01f81e7b4618b6ec84fdb38bfd2ff6a1e3e8/working_draft/API) |
 | ...                   | ...                                                                                                                                                       | ...                                                                                                                                                      | ...                                                                                                              |
@@ -21,9 +21,14 @@
 
 ---
 
+## Requierements
+- Python version 3.9+
+
+---
+
 ## Installation
 
-Install, upgrade and uninstall onerecord-python with these commands::
+Install, upgrade and uninstall **ONE Record with Python** with these commands::
 
     $ pip install onerecord
     $ pip install --upgrade onerecord
@@ -59,7 +64,7 @@ print(piece.id)
 
 ## Dependencies
 
-This **ONE Record for Python** distribution is tested on Python 3.9 and 3.10.
+This **ONE Record with Python** distribution is tested on Python 3.9 and 3.10.
 
 The dependencies are:
 
