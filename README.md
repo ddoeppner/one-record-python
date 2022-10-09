@@ -1,7 +1,7 @@
 # ONE Record for Python
 ![Made with love for Digital Cargo](https://img.shields.io/badge/Made%20with%20%E2%9D%A4%20for-Digital%20Cargo-informational)
 [![GitHub](https://img.shields.io/github/license/leoll2/copyright_notice_precommit)](https://opensource.org/licenses/MIT)
-[![PyPI - Python Version](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/)
+[![Python Version](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 > **Note:** This library is based on the latest IATA ONE Record ontology (working draft)
 
@@ -59,7 +59,7 @@ print(piece.id)
 
 ## Dependencies
 
-This **ONE Recorf for Python** distribution is tested on Python 3.9 and 3.10.
+This **ONE Record for Python** distribution is tested on Python 3.9 and 3.10.
 
 The dependencies are:
 
