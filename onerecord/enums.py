@@ -1,0 +1,57 @@
+import enum
+
+
+class LogisticsObjectType(enum.Enum):
+    BOOKING = "https://onerecord.iata.org/Booking"
+    BOOKINGOPTION = "https://onerecord.iata.org/BookingOption"
+    BOOKINGOPTIONREQUEST = "https://onerecord.iata.org/BookingOptionRequest"
+    BOOKINGTIMES = "https://onerecord.iata.org/BookingTimes"
+    CO2CALCMETHOD = "https://onerecord.iata.org/CO2CalcMethod"
+    CO2EMISSIONS = "https://onerecord.iata.org/CO2Emissions"
+    CARRIERPRODUCT = "https://onerecord.iata.org/CarrierProduct"
+    CHARACTERISTICS = "https://onerecord.iata.org/Characteristics"
+    CUSTOMSINFO = "https://onerecord.iata.org/CustomsInfo"
+    DGDECLARATION = "https://onerecord.iata.org/DgDeclaration"
+    DGPRODUCTRADIOACTIVE = "https://onerecord.iata.org/DgProductRadioactive"
+    DGRADIOACTIVEISOTOPE = "https://onerecord.iata.org/DgRadioactiveIsotope"
+    EPERMITCONSIGNMENT = "https://onerecord.iata.org/EpermitConsignment"
+    EPERMITSIGNATURE = "https://onerecord.iata.org/EpermitSignature"
+    INSURANCE = "https://onerecord.iata.org/Insurance"
+    IOTDEVICE = "https://onerecord.iata.org/IotDevice"
+    ITEM = "https://onerecord.iata.org/Item"
+    ITEMDG = "https://onerecord.iata.org/ItemDg"
+    LIVEANIMALSEPERMIT = "https://onerecord.iata.org/LiveAnimalsEpermit"
+    PACKAGINGTYPE = "https://onerecord.iata.org/PackagingType"
+    PIECE = "https://onerecord.iata.org/Piece"
+    PIECEDG = "https://onerecord.iata.org/PieceDg"
+    PIECELIVEANIMALS = "https://onerecord.iata.org/PieceLiveAnimals"
+    PRICE = "https://onerecord.iata.org/Price"
+    PRODUCT = "https://onerecord.iata.org/Product"
+    PRODUCTDG = "https://onerecord.iata.org/ProductDg"
+    RANGES = "https://onerecord.iata.org/Ranges"
+    RATINGS = "https://onerecord.iata.org/Ratings"
+    REQUEST = "https://onerecord.iata.org/Request"
+    ROUTING = "https://onerecord.iata.org/Routing"
+    SCHEDULE = "https://onerecord.iata.org/Schedule"
+    SECURITYDECLARATION = "https://onerecord.iata.org/SecurityDeclaration"
+    SENSOR = "https://onerecord.iata.org/Sensor"
+    SENSORGEOLOC = "https://onerecord.iata.org/SensorGeoloc"
+    SENSOROTHER = "https://onerecord.iata.org/SensorOther"
+    SERVICEREQUEST = "https://onerecord.iata.org/ServiceRequest"
+    SHIPMENT = "https://onerecord.iata.org/Shipment"
+    SPECIALHANDLING = "https://onerecord.iata.org/SpecialHandling"
+    TRANSPORTMEANS = "https://onerecord.iata.org/TransportMeans"
+    TRANSPORTMOVEMENT = "https://onerecord.iata.org/TransportMovement"
+    TRANSPORTSEGMENT = "https://onerecord.iata.org/TransportSegment"
+    ULD = "https://onerecord.iata.org/ULD"
+    WAYBILL = "https://onerecord.iata.org/Waybill"
+
+
+class NotificationEventType(enum.Enum):
+    OBJECT_CREATED = "OBJECT_CREATED"
+    OBJECT_UPDATED = "OBJECT_UPDATED"
+
+
+class ChangeRequestStatus(enum.Enum):
+    ACCEPTED = "ACCEPTED"
+    REJECTED = "REJECTED"

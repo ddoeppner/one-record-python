@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "onerecord"
+version = "0.1.0"
+authors = [
+    "Daniel A. Doeppner"
+]
+description = "ONE Record for Python"
+readme = "README.md"
+requires-python = ">=3.9"
+license = 'MIT'
+classifiers = [
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3 :: Only',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Intended Audience :: Developers',
+    'Intended Audience :: Information Technology',
+    'Intended Audience :: Logistics',
+    'Intended Audience :: Consultants',
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development",
+]
+dependencies = ['pydantic>=1.10.2', 'requests>=2.28.1']
+
+[project.urls]
+"Homepage" = "https://github.com/ddoeppner/one-record-python"
+"Bug Tracker" = "https://github.com/ddoeppner/one-record-python/issues"
+
+[tool.hatch.version]
+path = "onerecord/__init__.py"
