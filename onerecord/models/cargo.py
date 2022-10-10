@@ -14,9 +14,7 @@ class Address(Thing):
     """
     Address details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/Address", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/Address", alias="@type")
     address_code: list[str] = Field(
         default=None,
         alias="https://onerecord.iata.org/Address#addressCode",
@@ -73,9 +71,7 @@ class BookingSegment(Thing):
     """
     Booking Segment refers to the arrival and location details of a Booking Option Request or a Booking Option (offer or actual booking)"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/BookingSegment", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/BookingSegment", alias="@type")
     arrival_location: "Location" = Field(
         default=None,
         alias="https://onerecord.iata.org/BookingSegment#arrivalLocation",
@@ -136,9 +132,7 @@ class Branch(Thing):
 
 
 class CommonObjects(Thing):
-    type: list[str] = Field(
-        "https://onerecord.iata.org/CommonObjects", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/CommonObjects", alias="@type")
     company_identifier: str = Field(
         alias="https://onerecord.iata.org/CommonObjects#companyIdentifier",
         description="Company identifier from the Internet of Logistics of the entity that hosts the Common Object.",
@@ -149,9 +143,7 @@ class Company(Thing):
     """
     Company details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/Company", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/Company", alias="@type")
     branch: "CompanyBranch" = Field(
         default=None,
         alias="https://onerecord.iata.org/Company#branch",
@@ -173,9 +165,7 @@ class CompanyBranch(Thing):
     """
     Company branches"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/CompanyBranch", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/CompanyBranch", alias="@type")
     branch_name: str = Field(
         default=None,
         alias="https://onerecord.iata.org/CompanyBranch#branchName",
@@ -207,9 +197,7 @@ class Contact(Thing):
     """
     Contact details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/Contact", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/Contact", alias="@type")
     contact_type: str = Field(
         default=None,
         alias="https://onerecord.iata.org/Contact#contactType",
@@ -231,18 +219,14 @@ class ContactOther(Thing):
     """
     Other contact options e.g. Skype, Whatsapp, Viber, Fax etc"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/ContactOther", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/ContactOther", alias="@type")
 
 
 class Country(Thing):
     """
     Country details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/Country", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/Country", alias="@type")
     country_code: str = Field(
         default=None,
         alias="https://onerecord.iata.org/Country#countryCode",
@@ -259,9 +243,7 @@ class Dimensions(Thing):
     """
     Dimension details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/Dimensions", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/Dimensions", alias="@type")
     height: "Value" = Field(
         default=None,
         alias="https://onerecord.iata.org/Dimensions#height",
@@ -288,9 +270,7 @@ class EmbeddedObject(Thing):
     """
     Embedded Object parent class, containing all common properties for Embedded Object"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/EmbeddedObject", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/EmbeddedObject", alias="@type")
 
 
 class Event(Thing):
@@ -401,9 +381,7 @@ class Geolocation(Thing):
     """
     Geolocation details - e.g. for drones, automated vehicles..."""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/Geolocation", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/Geolocation", alias="@type")
     elevation: "Value" = Field(
         default=None,
         alias="https://onerecord.iata.org/Geolocation#elevation",
@@ -459,9 +437,7 @@ class Location(Thing):
     """
     Loading location details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/Location", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/Location", alias="@type")
     address: "Address" = Field(
         default=None,
         alias="https://onerecord.iata.org/Location#address",
@@ -493,9 +469,7 @@ class LogisticsObject(Thing):
     """
     Logistics Object parent class, containing all common properties for logistics objects."""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/LogisticsObject", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/LogisticsObject", alias="@type")
     company_identifier: str = Field(
         alias="https://onerecord.iata.org/LogisticsObject#companyIdentifier",
         description="Company identifier from the Internet of Logistics of the entity that hosts the Logistics Object.",
@@ -516,9 +490,7 @@ class Measurements(Thing):
     """
     Measurements details for Sensors, either generic or geolocation measurements are recorded"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/Measurements", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/Measurements", alias="@type")
     measurement_timestamp: datetime = Field(
         alias="https://onerecord.iata.org/Measurements#measurementTimestamp",
         description="Timestamp for the measurement",
@@ -529,9 +501,7 @@ class MovementTimes(Thing):
     """
     Times refering to Transport Movements, used to describe specfic times such as Actual Departure time, etc."""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/MovementTimes", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/MovementTimes", alias="@type")
     direction: str = Field(
         default=None,
         alias="https://onerecord.iata.org/MovementTimes#direction",
@@ -558,9 +528,7 @@ class OtherIdentifier(Thing):
     """
     Other identifiers"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/OtherIdentifier", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/OtherIdentifier", alias="@type")
     identifier: str = Field(
         default=None,
         alias="https://onerecord.iata.org/OtherIdentifier#identifier",
@@ -577,9 +545,7 @@ class OtherParty(Thing):
     """
     Company details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/OtherParty", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/OtherParty", alias="@type")
     company_details: "Company" = Field(
         default=None,
         alias="https://onerecord.iata.org/OtherParty#companyDetails",
@@ -675,9 +641,7 @@ class RegulatedEntity(Thing):
     """
     Regulated Entity"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/RegulatedEntity", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/RegulatedEntity", alias="@type")
     entity: "CompanyBranch" = Field(
         alias="https://onerecord.iata.org/RegulatedEntity#entity",
         description="Branch/Company",
@@ -702,9 +666,7 @@ class ScheduledLegs(Thing):
     """
     Scheduled Legs class to be used to identify legs. Can be used with Booking Option Request as an indicator of preferred Routing or with Booking Option when a carrier proposes a specific Routing."""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/ScheduledLegs", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/ScheduledLegs", alias="@type")
     arrival_date: list[datetime] = Field(
         default=None,
         alias="https://onerecord.iata.org/ScheduledLegs#arrivalDate",
@@ -774,9 +736,7 @@ class Booking(LogisticsObject):
     """
     Booking details - Deprecated, BookingOption should be used instead"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/Booking", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/Booking", alias="@type")
     carrier: "list[Company]" = Field(
         alias="https://onerecord.iata.org/Booking#carrier",
         description="Carrier details",
@@ -841,9 +801,7 @@ class BookingOption(LogisticsObject):
     """
     Booking details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/BookingOption", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/BookingOption", alias="@type")
     booking_segment: "BookingSegment" = Field(
         default=None,
         alias="https://onerecord.iata.org/BookingOption#bookingSegment",
@@ -1034,9 +992,7 @@ class BookingTimes(LogisticsObject):
     """
     Previsouly called Schedule. This object refers to times used for the Booking Option Request (preferences part of the request) or the Booking Option (times sur as LAT where there is a commitment from the carrier)"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/BookingTimes", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/BookingTimes", alias="@type")
     booking_option: "BookingOption" = Field(
         default=None,
         alias="https://onerecord.iata.org/BookingTimes#bookingOption",
@@ -1073,18 +1029,14 @@ class CO2CalcMethod(LogisticsObject):
     """
     CO2 calculation methods"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/CO2CalcMethod", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/CO2CalcMethod", alias="@type")
 
 
 class CO2Emissions(LogisticsObject):
     """
     CO2 Calculation"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/CO2Emissions", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/CO2Emissions", alias="@type")
     calculated_emissions: "Value" = Field(
         default=None,
         alias="https://onerecord.iata.org/CO2Emissions#calculatedEmissions",
@@ -1111,9 +1063,7 @@ class Carrier(Company):
     """
     Company details of carriers"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/Carrier", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/Carrier", alias="@type")
     airline_code: str = Field(
         default=None,
         alias="https://onerecord.iata.org/Carrier#airlineCode",
@@ -1140,9 +1090,7 @@ class CarrierProduct(LogisticsObject):
     """
     Carrier product details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/CarrierProduct", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/CarrierProduct", alias="@type")
     booking_option: "BookingOption" = Field(
         default=None,
         alias="https://onerecord.iata.org/CarrierProduct#bookingOption",
@@ -1164,9 +1112,7 @@ class Characteristics(LogisticsObject):
     """
     Product additional details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/Characteristics", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/Characteristics", alias="@type")
     characteristics_type: str = Field(
         default=None,
         alias="https://onerecord.iata.org/Characteristics#characteristicsType",
@@ -1188,9 +1134,7 @@ class CustomsInfo(LogisticsObject):
     """
     Customs information details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/CustomsInfo", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/CustomsInfo", alias="@type")
     customs_info_content_code: str = Field(
         default=None,
         alias="https://onerecord.iata.org/CustomsInfo#customsInfoContentCode",
@@ -1227,9 +1171,7 @@ class DgDeclaration(LogisticsObject):
     """
     Dangerous goods declaration"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/DgDeclaration", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/DgDeclaration", alias="@type")
     aircraft_limitation_information: str = Field(
         alias="https://onerecord.iata.org/DgDeclaration#aircraftLimitationInformation",
         description="Contains the Special Handling Code related to the prescribed limitation. Hardcoded to PASSENGER AND CARGO AIRCRAFT or CARGO AIRCRAFT ONLY. This field is mandatory for air (Air)",
@@ -1394,9 +1336,7 @@ class EventUld(Event):
     """
     Subtype of Event"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/EventUld", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/EventUld", alias="@type")
     loading_position: str = Field(
         default=None,
         alias="https://onerecord.iata.org/EventUld#loadingPosition",
@@ -1408,9 +1348,7 @@ class Insurance(LogisticsObject):
     """
     Insurance details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/Insurance", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/Insurance", alias="@type")
     covering_party: "Company" = Field(
         default=None,
         alias="https://onerecord.iata.org/Insurance#coveringParty",
@@ -1436,9 +1374,7 @@ class IotDevice(LogisticsObject):
     """
     IoT Device details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/IotDevice", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/IotDevice", alias="@type")
     associated_object: str = Field(
         default=None,
         alias="https://onerecord.iata.org/IotDevice#associatedObject",
@@ -1684,9 +1620,7 @@ class PackagingType(LogisticsObject):
     """
     Packaging details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/PackagingType", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/PackagingType", alias="@type")
     packaging_type_description: str = Field(
         alias="https://onerecord.iata.org/PackagingType#packagingTypeDescription",
         description="Free Text. Describes the package type.",
@@ -1917,9 +1851,7 @@ class PieceDg(Piece):
     """
     Dangerous Goods subtype of Piece"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/PieceDg", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/PieceDg", alias="@type")
     all_packed_in_one_indicator: bool = Field(
         default=None,
         alias="https://onerecord.iata.org/PieceDg#allPackedInOneIndicator",
@@ -2065,9 +1997,7 @@ class Product(LogisticsObject):
     """
     Product details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/Product", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/Product", alias="@type")
     characteristics: "list[Characteristics]" = Field(
         default=None,
         alias="https://onerecord.iata.org/Product#characteristics",
@@ -2131,9 +2061,7 @@ class ProductDg(Product):
     """
     Dangerous Goods subtype of Product"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/ProductDg", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/ProductDg", alias="@type")
     additional_hazard_classification_id: str = Field(
         default=None,
         alias="https://onerecord.iata.org/ProductDg#additionalHazardClassificationId",
@@ -2237,9 +2165,7 @@ class Ratings(LogisticsObject):
     """
     Ratings details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/Ratings", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/Ratings", alias="@type")
     billing_charge_identifier: str = Field(
         default=None,
         alias="https://onerecord.iata.org/Ratings#billingChargeIdentifier",
@@ -2316,9 +2242,7 @@ class Request(LogisticsObject):
     """
     Request object, refers to the Quote request or Booking request"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/Request", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/Request", alias="@type")
     parties: "OtherParty" = Field(
         default=None,
         alias="https://onerecord.iata.org/Request#parties",
@@ -2350,9 +2274,7 @@ class Routing(LogisticsObject):
     """
     Routing details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/Routing", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/Routing", alias="@type")
     aircraft_possibility_code: str = Field(
         default=None,
         alias="https://onerecord.iata.org/Routing#aircraftPossibilityCode",
@@ -2394,9 +2316,7 @@ class Schedule(LogisticsObject):
     """
     Scheduling details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/Schedule", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/Schedule", alias="@type")
     earliest_acceptance_time: str = Field(
         default=None,
         alias="https://onerecord.iata.org/Schedule#earliestAcceptanceTime",
@@ -2514,9 +2434,7 @@ class SensorGeoloc(Sensor):
     """
     Sensor measurements details for Geolocation sensors (sensorType = Geolocation)"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/SensorGeoloc", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/SensorGeoloc", alias="@type")
     val: "list[MeasurementsGeoloc]" = Field(
         default=None,
         alias="https://onerecord.iata.org/SensorGeoloc#val",
@@ -2528,9 +2446,7 @@ class SensorOther(Sensor):
     """
     Sensor measurements details for sensors other than Geolocation sensors (sensorType != Geolocation)"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/SensorOther", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/SensorOther", alias="@type")
     val: "list[MeasurementsOther]" = Field(
         default=None,
         alias="https://onerecord.iata.org/SensorOther#val",
@@ -2542,9 +2458,7 @@ class ServiceRequest(LogisticsObject):
     """
     Service request details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/ServiceRequest", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/ServiceRequest", alias="@type")
     code: str = Field(
         default=None,
         alias="https://onerecord.iata.org/ServiceRequest#code",
@@ -2571,9 +2485,7 @@ class Shipment(LogisticsObject):
     """
     Shipment details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/Shipment", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/Shipment", alias="@type")
     contained_pieces: "list[Piece]" = Field(
         default=None,
         alias="https://onerecord.iata.org/Shipment#containedPieces",
@@ -2663,9 +2575,7 @@ class SpecialHandling(LogisticsObject):
     """
     Special handling details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/SpecialHandling", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/SpecialHandling", alias="@type")
     code: str = Field(
         default=None,
         alias="https://onerecord.iata.org/SpecialHandling#code",
@@ -2682,9 +2592,7 @@ class TransportMeans(LogisticsObject):
     """
     Transport means details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/TransportMeans", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/TransportMeans", alias="@type")
     transport_company: "Company" = Field(
         default=None,
         alias="https://onerecord.iata.org/TransportMeans#transportCompany",
@@ -2963,9 +2871,7 @@ class Waybill(LogisticsObject):
     """
     Waybill details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/Waybill", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/Waybill", alias="@type")
     accounting_information: str = Field(
         default=None,
         alias="https://onerecord.iata.org/Waybill#accountingInformation",

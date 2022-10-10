@@ -56,11 +56,7 @@ def dict_to_logistics_object(
 ) -> Optional[LogisticsObject]:
     if "@type" in logistics_object_dict:
         logistics_object_type: Optional[str] = next(
-            (
-                t
-                for t in type_class_mapping
-                if t in logistics_object_dict["@type"]
-            ),
+            (t for t in type_class_mapping if t in logistics_object_dict["@type"]),
             None,
         )
         if logistics_object_type:
@@ -75,9 +71,7 @@ def json_to_logistics_object(
 ) -> Optional[LogisticsObject]:
     """Parses the given dict to a LogisticObject"""
     logistics_object_dict: dict = json.loads(logistics_object_json)
-    return dict_to_logistics_object(
-        logistics_object_dict=logistics_object_dict
-    )
+    return dict_to_logistics_object(logistics_object_dict=logistics_object_dict)
 
 
 def json_to_logistics_objects(
@@ -88,9 +82,7 @@ def json_to_logistics_objects(
     logistics_objects_list: list = json.loads(logistics_objects_json)
     if len(logistics_objects_list) > 0:
         for logistics_object_dict in logistics_objects_list:
-            logistics_object: Optional[
-                LogisticsObject
-            ] = dict_to_logistics_object(
+            logistics_object: Optional[LogisticsObject] = dict_to_logistics_object(
                 logistics_object_dict=logistics_object_dict
             )
             if logistics_object:

@@ -3,6 +3,7 @@ from typing import Optional
 
 import requests
 
+from onerecord import logger
 from onerecord.enums import LogisticsObjectType
 from onerecord.exceptions import ONERecordClientException
 from onerecord.models.api import Notification
@@ -39,9 +40,7 @@ class ONERecordClient:
         self._host = host
         self._port = int(port)
         if not company_identifier:
-            raise ValueError(
-                "company_identifer is required parameter but missing"
-            )
+            raise ValueError("company_identifer is required parameter but missing")
         else:
             self._path = f"/companies/{company_identifier}"
 
@@ -71,9 +70,7 @@ class ONERecordClient:
 
         if cert:
             if not ssl:
-                raise ValueError(
-                    "Client certificate provided but ssl is disabled."
-                )
+                raise ValueError("Client certificate provided but ssl is disabled.")
             else:
                 self._session.cert = cert
 
@@ -95,10 +92,16 @@ class ONERecordClient:
                 self._session.request, timeout=self._timeout
             )
 
+    def close(self):
+        self._session.close()
+
     def create_logistics_object(
         self, logistics_object: LogisticsObject
-    ) -> LogisticsObject:
+    ) -> Optional[LogisticsObject]:
         """Creates a logistics object on a ONE Record server"""
+        if type(logistics_object) not in LogisticsObject.__subclasses__():
+            raise ValueError("No appropriate LogisticsObject provided")
+        logger.debug("Create LogicisObject")
         url = f"{self._baseurl}/los"
         response = requests.request(
             "POST",
@@ -106,9 +109,9 @@ class ONERecordClient:
             headers=self._headers,
             data=logistics_object.json(exclude_none=True, by_alias=True),
         )
-        if response.status_code == 201 and "location" in response.headers:
-            logistics_object.id = response.headers["location"]
-            return logistics_object
+
+        if response.status_code == 201 and "Location" in response.headers:
+            return json_to_logistics_object(logistics_object_json=response.text)
         else:
             raise ONERecordClientException(
                 message="Could not create LogisticsObject",
@@ -122,26 +125,22 @@ class ONERecordClient:
         url = f"{self._baseurl}/los"
         if logistics_object_type:
             url = f"{url}?type={logistics_object_type.value}"
+        logger.debug(f"Get LogicisObjects from {url}")
         response = self._session.get(url)
         if response.status_code == 200:
-            return json_to_logistics_objects(
-                logistics_objects_json=response.text
-            )
+            return json_to_logistics_objects(logistics_objects_json=response.text)
         else:
             raise ONERecordClientException(
                 message="Could not get LogisticsObject",
                 code=response.status_code,
             )
 
-    def get_logistics_object_by_uri(
-        self, uri: str
-    ) -> Optional[LogisticsObject]:
+    def get_logistics_object_by_uri(self, uri: str) -> Optional[LogisticsObject]:
         """Returns a logistics object by URI"""
+        logger.debug(f"Get LogicisObject from {uri}")
         response = self._session.get(uri)
         if response.status_code == 200:
-            return json_to_logistics_object(
-                logistics_object_json=response.text
-            )
+            return json_to_logistics_object(logistics_object_json=response.text)
 
         elif response.status_code == 404:
             raise ONERecordClientException(
@@ -154,10 +153,9 @@ class ONERecordClient:
                 code=response.status_code,
             )
 
-    def create_event(
-        self, logistics_object_uri: str, event: Event
-    ) -> Optional[bool]:
+    def create_event(self, logistics_object_uri: str, event: Event) -> Optional[bool]:
         """Creates Events object for particular LogisticsObject"""
+        logger.debug(f"Create Event for LogisticsObject[@id={logistics_object_uri}]")
         url = f"{logistics_object_uri}/events"
         response = self._session.post(
             url=url, data=event.json(exclude_none=True, by_alias=True)
@@ -180,7 +178,7 @@ class ONERecordClient:
     ) -> list[Event]:
         url = f"{logistics_object_uri}/events"
         response = self._session.get(url=url)
-
+        logger.debug(f"Get Events for LogisticsObject[@id={logistics_object_uri}]")
         if response.status_code == 200:
             return json_to_events(events_json=response.text)
         else:
@@ -192,6 +190,7 @@ class ONERecordClient:
     def send_notification(
         self, callback_url: str, notification: Notification
     ) -> Optional[bool]:
+        logger.debug(f"Send Notification to {callback_url}")
         response = self._session.post(
             url=callback_url,
             data=notification.json(exclude_none=True, by_alias=True),

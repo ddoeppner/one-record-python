@@ -19,9 +19,7 @@ class AuditTrail(Thing):
     """
     Audit trail of a Logistics Object"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/api/AuditTrail", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/api/AuditTrail", alias="@type")
     change_requests: "list[ChangeRequest]" = Field(
         alias="https://onerecord.iata.org/api/AuditTrail#changeRequests",
         description="List of change requests that were sent as PATCH on for a Logistics Object",
@@ -137,9 +135,7 @@ class Details(Thing):
     """
     Error details"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/api/Details", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/api/Details", alias="@type")
     attribute: str = Field(
         default=None,
         alias="https://onerecord.iata.org/api/Details#attribute",
@@ -165,9 +161,7 @@ class Error(Thing):
     """
     Error model"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/api/Error", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/api/Error", alias="@type")
     details: "list[Details]" = Field(
         alias="https://onerecord.iata.org/api/Error#details",
         description="Error details",
@@ -199,9 +193,7 @@ class Memento(Thing):
     """
     Version of a Logistics Object"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/api/Memento", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/api/Memento", alias="@type")
     created: datetime = Field(
         alias="https://onerecord.iata.org/api/Memento#created",
         description="Date and time of the memento creation",
@@ -251,9 +243,7 @@ class MementoList(Thing):
     """
     Memento list model"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/api/MementoList", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/api/MementoList", alias="@type")
     memento_entry: "list[MementoEntry]" = Field(
         alias="https://onerecord.iata.org/api/MementoList#mementoEntry",
         description="List of mementos of a Logistics Object",
@@ -264,9 +254,7 @@ class Mementos(Thing):
     """
     Memento list model"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/api/Mementos", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/api/Mementos", alias="@type")
     first_memento: str = Field(
         alias="https://onerecord.iata.org/api/Mementos#firstMemento",
         description="First memento of the Logistics Object",
@@ -306,9 +294,7 @@ class Operation(Thing):
     """
     Operation Request contained in the PATCH body"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/api/Operation", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/api/Operation", alias="@type")
     o: "OperationObject" = Field(
         alias="https://onerecord.iata.org/api/Operation#o",
         description="PATCH object to modify",
@@ -359,8 +345,7 @@ class PatchRequest(Thing):
     )
     operations: "list[Operation]" = Field(
         alias="https://onerecord.iata.org/api/PatchRequest#operations",
-        description="List of operations to apply as PATCH on a "
-        "Logistics Object",
+        description="List of operations to apply as PATCH on a " "Logistics Object",
     )
     requestor_company_identifier: str = Field(
         alias="https://onerecord.iata.org/api/PatchRequest#requestorCompanyIdentifier",
@@ -432,9 +417,7 @@ class Timemap(Thing):
     """
     Timemap of a Logistics Object containing mementos and timegate URI"""
 
-    type: list[str] = Field(
-        "https://onerecord.iata.org/api/Timemap", alias="@type"
-    )
+    type: list[str] = Field("https://onerecord.iata.org/api/Timemap", alias="@type")
     mementos: "Mementos" = Field(
         alias="https://onerecord.iata.org/api/Timemap#mementos",
         description="List of mementos of a Logistics Object",

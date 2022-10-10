@@ -18,9 +18,7 @@ def test_json_to_logistics_object():
 def test_json_to_logistics_object_invalid():
     with pytest.raises(JSONDecodeError):
         invalid_logistics_object_json: str = '{ype": ["https://onerecord.iata.org/Piece", "https://onerecord.iata.org/LogisticsObject"], "https://onerecord.iata.org/Piece#grossWeight": {"@id": "_:1957521880", "@type": [ "https://onerecord.iata.org/Value"], "https://onerecord.iata.org/Value#value": 3.922, "https://onerecord.iata.org/Value#unit": "KGM"}, "https://onerecord.iata.org/LogisticsObject#revision": 0, "https://onerecord.iata.org/LogisticsObject#companyIdentifier": "http://localhost:8080/companies/cgnbeerbrewery", "https://onerecord.iata.org/Piece#goodsDescription": "six pack of Koelsch beer"}'
-        json_to_logistics_object(
-            logistics_object_json=invalid_logistics_object_json
-        )
+        json_to_logistics_object(logistics_object_json=invalid_logistics_object_json)
 
     unknown_logistics_object_json: str = '{"@id": "http://localhost:8080/companies/cgnbeerbrewery/los/piece-1261620145", "@type": ["https://onerecord.iata.org/Beer", "https://onerecord.iata.org/LogisticsObject"], "https://onerecord.iata.org/Piece#grossWeight": {"@id": "_:1957521880", "@type": [ "https://onerecord.iata.org/Value"], "https://onerecord.iata.org/Value#value": 3.922, "https://onerecord.iata.org/Value#unit": "KGM"}, "https://onerecord.iata.org/LogisticsObject#revision": 0, "https://onerecord.iata.org/LogisticsObject#companyIdentifier": "http://localhost:8080/companies/cgnbeerbrewery", "https://onerecord.iata.org/Piece#goodsDescription": "six pack of Koelsch beer"}'
     unknown_logistics_objects: LogisticsObject = json_to_logistics_object(
