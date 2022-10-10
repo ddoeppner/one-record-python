@@ -1,9 +1,9 @@
 import functools
+import logging
 from typing import Optional
 
 import requests
 
-from onerecord import logger
 from onerecord.enums import LogisticsObjectType
 from onerecord.exceptions import ONERecordClientException
 from onerecord.models.api import Notification
@@ -13,6 +13,8 @@ from onerecord.utils import (
     json_to_logistics_object,
     json_to_logistics_objects,
 )
+
+logger = logging.getLogger("onerecord-client")
 
 
 class ONERecordClient:
@@ -97,7 +99,7 @@ class ONERecordClient:
 
     def create_logistics_object(
         self, logistics_object: LogisticsObject
-    ) -> Optional[LogisticsObject]:
+    ) -> LogisticsObject:
         """Creates a logistics object on a ONE Record server"""
         if type(logistics_object) not in LogisticsObject.__subclasses__():
             raise ValueError("No appropriate LogisticsObject provided")
@@ -111,7 +113,12 @@ class ONERecordClient:
         )
 
         if response.status_code == 201 and "Location" in response.headers:
-            return json_to_logistics_object(logistics_object_json=response.text)
+            logistics_object_response = json_to_logistics_object(
+                logistics_object_json=response.text
+            )
+            if logistics_object_response:
+                logistics_object = logistics_object_response
+            return logistics_object
         else:
             raise ONERecordClientException(
                 message="Could not create LogisticsObject",
