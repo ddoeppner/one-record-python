@@ -6,9 +6,10 @@ import requests
 
 from onerecord.enums import LogisticsObjectType
 from onerecord.exceptions import ONERecordClientException
-from onerecord.models.api import Notification
+from onerecord.models.api import Notification, PatchRequest
 from onerecord.models.cargo import Event, LogisticsObject
 from onerecord.utils import (
+    generate_patch_request,
     json_to_events,
     json_to_logistics_object,
     json_to_logistics_objects,
@@ -44,6 +45,7 @@ class ONERecordClient:
         if not company_identifier:
             raise ValueError("company_identifer is required parameter but missing")
         else:
+            self.company_identifier = company_identifier
             self._path = f"/companies/{company_identifier}"
 
         if not session:
@@ -100,30 +102,62 @@ class ONERecordClient:
     def create_logistics_object(
         self, logistics_object: LogisticsObject
     ) -> LogisticsObject:
-        """Creates a logistics object on a ONE Record server"""
+        """Creates a logistics object on a ONE Record API"""
         if type(logistics_object) not in LogisticsObject.__subclasses__():
             raise ValueError("No appropriate LogisticsObject provided")
-        logger.debug("Create LogicisObject")
+        data = logistics_object.json(exclude_none=True, by_alias=True)
+        logger.debug(f"Create LogicisObject: {data}")
         url = f"{self._baseurl}/los"
-        response = requests.request(
-            "POST",
-            url,
-            headers=self._headers,
-            data=logistics_object.json(exclude_none=True, by_alias=True),
+        response = self._session.post(
+            url=url,
+            data=data,
         )
 
         if response.status_code == 201 and "Location" in response.headers:
-            logistics_object_response = json_to_logistics_object(
-                logistics_object_json=response.text
-            )
-            if logistics_object_response:
-                logistics_object = logistics_object_response
+            logistics_object.id = response.headers["location"]
             return logistics_object
         else:
             raise ONERecordClientException(
                 message="Could not create LogisticsObject",
                 code=response.status_code,
             )
+
+    def update_logistics_object(
+        self, updated_logistics_object: LogisticsObject
+    ) -> bool:
+        """Update a logistics object on a ONE Record API"""
+        url: str = updated_logistics_object.id
+        original_logistics_object: Optional[
+            LogisticsObject
+        ] = self.get_logistics_object_by_uri(url)
+
+        if original_logistics_object:
+            patch_request: PatchRequest = generate_patch_request(
+                original_logistics_object=original_logistics_object,
+                updated_logistics_object=updated_logistics_object,
+                requestor_company_identifier=self.company_identifier,
+            )
+            if patch_request.operations is None or len(patch_request.operations) == 0:
+                raise ValueError("LogisticsObject seems to be up-to-date")
+            data = patch_request.json(exclude_none=True, by_alias=True)
+            logger.debug(f"Patch LogisticsObject with {data}")
+            response = self._session.patch(url=url, data=data)
+
+            if response.status_code == 204:
+                return True
+            elif response.status_code == 404:
+                raise ONERecordClientException(
+                    message=f'LogisticsObject[@id="{updated_logistics_object.id} not found"]',
+                    code=response.status_code,
+                )
+            else:
+                raise ONERecordClientException(
+                    message=f'Could not update LogisticsObject[@id="{updated_logistics_object.id}"]',
+                    code=response.status_code,
+                )
+        else:
+            logger.warning(f"LogisticsObject[@id={url}] not found")
+        return False
 
     def get_logistics_objects(
         self, logistics_object_type: LogisticsObjectType = None
@@ -197,10 +231,11 @@ class ONERecordClient:
     def send_notification(
         self, callback_url: str, notification: Notification
     ) -> Optional[bool]:
-        logger.debug(f"Send Notification to {callback_url}")
+        data = notification.json(exclude_none=True, by_alias=True)
+        logger.debug(f"Send Notification to {callback_url}. Data: {data}")
         response = self._session.post(
             url=callback_url,
-            data=notification.json(exclude_none=True, by_alias=True),
+            data=data,
         )
         if response.status_code == 200:
             return True

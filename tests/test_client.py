@@ -13,7 +13,9 @@ from onerecord.models.cargo import Event, LogisticsObject, Piece
 
 def text_create_piece_callback(request, context):
     context.status_code = 201
-    context.headers = {"Location": "http://localhost:8080/companies/test/los/piece-1"}
+    context.headers = {
+        "Location": "http://localhost:8080/companies/test/los/piece-1260233867"
+    }
     return '{"@id":"http://localhost:8080/companies/test/los/piece-1260233867","@type":["https://onerecord.iata.org/Piece","https://onerecord.iata.org/LogisticsObject"],"https://onerecord.iata.org/Piece#grossWeight":{"@id":"_:1794007512","@type":["https://onerecord.iata.org/Value"],"https://onerecord.iata.org/Value#value":3.922,"https://onerecord.iata.org/Value#unit":"KGM"},"https://onerecord.iata.org/LogisticsObject#revision":0,"https://onerecord.iata.org/LogisticsObject#companyIdentifier":"http://localhost:8080/companies/test","https://onerecord.iata.org/Piece#goodsDescription":"six pack of Koelsch beer"}'
 
 
@@ -196,5 +198,31 @@ class TestONERecordClient(unittest.TestCase):
             self.client.send_notification(
                 callback_url=callback_url, notification=notification
             )
+            is True
+        )
+
+    @requests_mock.mock()
+    def test_update_logistics_object(self, m):
+        m.patch(
+            "http://localhost:8080/companies/test/los/piece-1260233867", status_code=204
+        )
+        m.get(
+            "http://localhost:8080/companies/test/los/piece-1260233867",
+            text=text_get_piece_callback,
+            status_code=200,
+        )
+        updated_piece: Piece = Piece(
+            **{
+                "@id": "http://localhost:8080/companies/test/los/piece-1260233867",
+                "https://onerecord.iata.org/Piece#grossWeight": {
+                    "https://onerecord.iata.org/Value#value": 4.922,
+                    "https://onerecord.iata.org/Value#unit": "KGM",
+                },
+                "https://onerecord.iata.org/LogisticsObject#companyIdentifier": "http://localhost:8080/companies/test",
+                "https://onerecord.iata.org/Piece#goodsDescription": "six pack of Koelsch beer",
+            }
+        )
+        assert (
+            self.client.update_logistics_object(updated_logistics_object=updated_piece)
             is True
         )

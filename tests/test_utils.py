@@ -2,8 +2,13 @@ from json import JSONDecodeError
 
 import pytest
 
+from onerecord.models.api import PatchRequest
 from onerecord.models.cargo import LogisticsObject, Piece
-from onerecord.utils import json_to_logistics_object, json_to_logistics_objects
+from onerecord.utils import (
+    generate_patch_request,
+    json_to_logistics_object,
+    json_to_logistics_objects,
+)
 
 
 def test_json_to_logistics_object():
@@ -35,3 +40,113 @@ def test_json_to_logistics_objects():
     )
     assert logistics_objects is not None
     assert len(logistics_objects) == 2
+
+
+def test_generate_patch_request_replace():
+    piece_a: Piece = Piece(
+        **{
+            "@id": "http://localhost:8080/companies/cgnbeerbrewery/piece-1153586115",
+            "@type": [
+                "https://onerecord.iata.org/Piece",
+                "https://onerecord.iata.org/LogisticsObject",
+            ],
+            "upid": "4711-1337-1",
+            "company_identifier": "test",
+            "goods_description": "six pack of Koelsch beer",
+            "gross_weight": {"unit": "KGM", "value": 3.922},
+        }
+    )
+    piece_b: Piece = Piece(
+        **{
+            "@id": "http://localhost:8080/companies/cgnbeerbrewery/piece-1153586115",
+            "@type": [
+                "https://onerecord.iata.org/Piece",
+                "https://onerecord.iata.org/LogisticsObject",
+            ],
+            "upid": "4711-1337-1",
+            "company_identifier": "test",
+            "goods_description": "six pack of Koelsch beer",
+            "gross_weight": {"unit": "KGM", "value": 4.00},
+        }
+    )
+    patch_request: PatchRequest = generate_patch_request(
+        original_logistics_object=piece_a,
+        updated_logistics_object=piece_b,
+        requestor_company_identifier="cgnbeerbrewery",
+    )
+    assert patch_request is not None
+    assert len(patch_request.operations) == 2
+
+
+def test_generate_patch_request_add():
+    piece_a: Piece = Piece(
+        **{
+            "@id": "http://localhost:8080/companies/cgnbeerbrewery/piece-1153586115",
+            "@type": [
+                "https://onerecord.iata.org/Piece",
+                "https://onerecord.iata.org/LogisticsObject",
+            ],
+            "upid": "4711-1337-1",
+            "company_identifier": "test",
+            "goods_description": "six pack of Koelsch beer",
+            "gross_weight": {"unit": "KGM", "value": 3.922},
+        }
+    )
+    piece_b: Piece = Piece(
+        **{
+            "@id": "http://localhost:8080/companies/cgnbeerbrewery/piece-1153586115",
+            "@type": [
+                "https://onerecord.iata.org/Piece",
+                "https://onerecord.iata.org/LogisticsObject",
+            ],
+            "upid": "4711-1337-1",
+            "company_identifier": "test",
+            "goods_description": "six pack of Koelsch beer",
+            "nvd_for_customs": True,
+            "gross_weight": {"unit": "KGM", "value": 3.922},
+        }
+    )
+    patch_request: PatchRequest = generate_patch_request(
+        original_logistics_object=piece_a,
+        updated_logistics_object=piece_b,
+        requestor_company_identifier="cgnbeerbrewery",
+    )
+    assert patch_request is not None
+    assert len(patch_request.operations) == 1
+
+
+def test_generate_patch_request_replace_add():
+    piece_a: Piece = Piece(
+        **{
+            "@id": "http://localhost:8080/companies/cgnbeerbrewery/piece-1153586115",
+            "@type": [
+                "https://onerecord.iata.org/Piece",
+                "https://onerecord.iata.org/LogisticsObject",
+            ],
+            "upid": "4711-1337-1",
+            "company_identifier": "test",
+            "goods_description": "six pack of Koelsch beer",
+            "gross_weight": {"unit": "KGM", "value": 3.922},
+        }
+    )
+    piece_b: Piece = Piece(
+        **{
+            "@id": "http://localhost:8080/companies/cgnbeerbrewery/piece-1153586115",
+            "@type": [
+                "https://onerecord.iata.org/Piece",
+                "https://onerecord.iata.org/LogisticsObject",
+            ],
+            "upid": "4711-1337-1",
+            "company_identifier": "test",
+            "goods_description": "six pack of Koelsch beer",
+            "nvd_for_customs": True,
+            "gross_weight": {"unit": "KGM", "value": 4.00},
+        }
+    )
+    patch_request: PatchRequest = generate_patch_request(
+        original_logistics_object=piece_a,
+        updated_logistics_object=piece_b,
+        requestor_company_identifier="cgnbeerbrewery",
+    )
+    assert patch_request is not None
+    assert len(patch_request.operations) == 3
