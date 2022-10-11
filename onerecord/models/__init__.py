@@ -5,6 +5,10 @@ from datetime import datetime
 from pydantic import BaseModel, Field
 from pydantic.utils import to_camel
 
+"""
+Generated: 2022-10-11
+"""
+
 
 class Thing(BaseModel):
     id: str = Field(default=None, alias="@id")

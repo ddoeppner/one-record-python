@@ -7,17 +7,20 @@ from onerecord.enums import (
     LogisticsObjectType,
     NotificationEventType,
 )
-from onerecord.models.cargo import Branch, Company, LogisticsObject, Thing
+from onerecord.models import Thing
+from onerecord.models.cargo import Branch, Company, LogisticsObject
 
 """
-Based on IATA ONE Record API Ontology Version 1.1 (2021-04-20)
-see https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/eb404f134c18f8aac0bfe51666c081ba971f3c4d/working_draft/ontology/IATA-1R-API-Ontology.ttl
+Ontology: IATA ONE Record API Ontology Version 1.1 (2021-04-20)
+Generated: 2022-10-11
+Source: https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/working_draft/ontology/IATA-1R-API-Ontology.ttl
 """
 
 
 class AuditTrail(Thing):
     """
-    Audit trail of a Logistics Object"""
+    Audit trail of a Logistics Object
+    """
 
     type: list[str] = Field("https://onerecord.iata.org/api/AuditTrail", alias="@type")
     change_requests: "list[ChangeRequest]" = Field(
@@ -35,7 +38,7 @@ class AuditTrail(Thing):
     )
     lo_initial_snapshot: "Memento" = Field(
         alias="https://onerecord.iata.org/api/AuditTrail#loInitialSnapshot",
-        description="Initial message of the Logistics Object at the creation moment, represented via a Memento",
+        description="Initial content of the Logistics Object at the creation moment, represented via a Memento",
     )
     logistics_object_ref: "LogisticsObjectRef" = Field(
         alias="https://onerecord.iata.org/api/AuditTrail#logisticsObjectRef",
@@ -45,7 +48,8 @@ class AuditTrail(Thing):
 
 class ChangeRequest(Thing):
     """
-    Change Request for the audit trail"""
+    Change Request for the audit trail
+    """
 
     type: list[str] = Field(
         "https://onerecord.iata.org/api/ChangeRequest", alias="@type"
@@ -62,7 +66,7 @@ class ChangeRequest(Thing):
         alias="https://onerecord.iata.org/api/ChangeRequest#requestingParty",
         description="The party that has requested the change request",
     )
-    status: ChangeRequestStatus = Field(
+    status: "ChangeRequestStatus" = Field(
         alias="https://onerecord.iata.org/api/ChangeRequest#status",
         description="ACCEPTED or REJECTED",
     )
@@ -74,7 +78,8 @@ class ChangeRequest(Thing):
 
 class CompanyInformation(Thing):
     """
-    Company information in the Internet of Logistics"""
+    Company information in the Internet of Logistics
+    """
 
     type: list[str] = Field(
         "https://onerecord.iata.org/api/CompanyInformation", alias="@type"
@@ -98,7 +103,7 @@ class CompanyInformation(Thing):
     )
     supported_content_types: list[str] = Field(
         alias="https://onerecord.iata.org/api/CompanyInformation#supportedContentTypes",
-        description="Supported message types of the server",
+        description="Supported content types of the server",
     )
     supported_logistics_objects: list[str] = Field(
         alias="https://onerecord.iata.org/api/CompanyInformation#supportedLogisticsObjects",
@@ -108,7 +113,8 @@ class CompanyInformation(Thing):
 
 class DelegationRequest(Thing):
     """
-    Delegation Request to 3rd parties"""
+    Delegation Request to 3rd parties
+    """
 
     type: list[str] = Field(
         "https://onerecord.iata.org/api/DelegationRequest", alias="@type"
@@ -133,7 +139,8 @@ class DelegationRequest(Thing):
 
 class Details(Thing):
     """
-    Error details"""
+    Error details
+    """
 
     type: list[str] = Field("https://onerecord.iata.org/api/Details", alias="@type")
     attribute: str = Field(
@@ -142,8 +149,7 @@ class Details(Thing):
         description="Field of the object for which the error applies",
     )
     code: str = Field(
-        alias="https://onerecord.iata.org/api/Details#code",
-        description="Error code",
+        alias="https://onerecord.iata.org/api/Details#code", description="Error code"
     )
     message: str = Field(
         default=None,
@@ -159,7 +165,8 @@ class Details(Thing):
 
 class Error(Thing):
     """
-    Error model"""
+    Error model
+    """
 
     type: list[str] = Field("https://onerecord.iata.org/api/Error", alias="@type")
     details: "list[Details]" = Field(
@@ -174,7 +181,8 @@ class Error(Thing):
 
 class LogisticsObjectRef(Thing):
     """
-    Reference to a Logistics Object"""
+    Reference to a Logistics Object
+    """
 
     type: list[str] = Field(
         "https://onerecord.iata.org/api/LogisticsObjectRef", alias="@type"
@@ -183,7 +191,7 @@ class LogisticsObjectRef(Thing):
         alias="https://onerecord.iata.org/api/LogisticsObjectRef#logisticsObjectId",
         description="Id of the reference Logistics Object",
     )
-    logistics_object_type: LogisticsObjectType = Field(
+    logistics_object_type: "LogisticsObjectType" = Field(
         alias="https://onerecord.iata.org/api/LogisticsObjectRef#logisticsObjectType",
         description="Type of the reference Logistics Object",
     )
@@ -191,7 +199,8 @@ class LogisticsObjectRef(Thing):
 
 class Memento(Thing):
     """
-    Version of a Logistics Object"""
+    Version of a Logistics Object
+    """
 
     type: list[str] = Field("https://onerecord.iata.org/api/Memento", alias="@type")
     created: datetime = Field(
@@ -219,7 +228,8 @@ class Memento(Thing):
 
 class MementoEntry(Thing):
     """
-    Memento entry from the time map"""
+    Memento entry from the time map
+    """
 
     type: list[str] = Field(
         "https://onerecord.iata.org/api/MementoEntry", alias="@type"
@@ -241,7 +251,8 @@ class MementoEntry(Thing):
 
 class MementoList(Thing):
     """
-    Memento list model"""
+    Memento list model
+    """
 
     type: list[str] = Field("https://onerecord.iata.org/api/MementoList", alias="@type")
     memento_entry: "list[MementoEntry]" = Field(
@@ -252,7 +263,8 @@ class MementoList(Thing):
 
 class Mementos(Thing):
     """
-    Memento list model"""
+    Memento list model
+    """
 
     type: list[str] = Field("https://onerecord.iata.org/api/Mementos", alias="@type")
     first_memento: str = Field(
@@ -271,12 +283,13 @@ class Mementos(Thing):
 
 class Notification(Thing):
     """
-    Notification sent by the publisher to the subscriber"""
+    Notification sent by the publisher to the subscriber
+    """
 
     type: list[str] = Field(
         "https://onerecord.iata.org/api/Notification", alias="@type"
     )
-    event_type: NotificationEventType = Field(
+    event_type: "NotificationEventType" = Field(
         alias="https://onerecord.iata.org/api/Notification#eventType",
         description="OBJECT_CREATED or OBJECT_UPDATED",
     )
@@ -292,7 +305,8 @@ class Notification(Thing):
 
 class Operation(Thing):
     """
-    Operation Request contained in the PATCH body"""
+    Operation Request contained in the PATCH body
+    """
 
     type: list[str] = Field("https://onerecord.iata.org/api/Operation", alias="@type")
     o: "OperationObject" = Field(
@@ -311,7 +325,8 @@ class Operation(Thing):
 
 class OperationObject(Thing):
     """
-    Object to modify in the PATCH request"""
+    Object to modify in the PATCH request
+    """
 
     type: list[str] = Field(
         "https://onerecord.iata.org/api/OperationObject", alias="@type"
@@ -328,7 +343,8 @@ class OperationObject(Thing):
 
 class PatchRequest(Thing):
     """
-    PATCH Request body containing updates on a Logistics Object"""
+    PATCH Request body containing updates on a Logistics Object
+    """
 
     type: list[str] = Field(
         "https://onerecord.iata.org/api/PatchRequest", alias="@type"
@@ -340,17 +356,15 @@ class PatchRequest(Thing):
     )
     logistics_object_ref: "LogisticsObjectRef" = Field(
         alias="https://onerecord.iata.org/api/PatchRequest#logisticsObjectRef",
-        description="Reference of the Logistics Object to which the "
-        "change request is applied to",
+        description="Reference of the Logistics Object to which the change request is applied to",
     )
     operations: "list[Operation]" = Field(
         alias="https://onerecord.iata.org/api/PatchRequest#operations",
-        description="List of operations to apply as PATCH on a " "Logistics Object",
+        description="List of operations to apply as PATCH on a Logistics Object",
     )
     requestor_company_identifier: str = Field(
         alias="https://onerecord.iata.org/api/PatchRequest#requestorCompanyIdentifier",
-        description="The company identifier of the entity that is "
-        "requesting the change request",
+        description="The company identifier of the entity that is requesting the change request",
     )
     revision: str = Field(
         alias="https://onerecord.iata.org/api/PatchRequest#revision",
@@ -360,7 +374,8 @@ class PatchRequest(Thing):
 
 class Subscription(Thing):
     """
-    Subscription information sent to the publisher"""
+    Subscription information sent to the publisher
+    """
 
     type: list[str] = Field(
         "https://onerecord.iata.org/api/Subscription", alias="@type"
@@ -415,7 +430,8 @@ class Subscription(Thing):
 
 class Timemap(Thing):
     """
-    Timemap of a Logistics Object containing mementos and timegate URI"""
+    Timemap of a Logistics Object containing mementos and timegate URI
+    """
 
     type: list[str] = Field("https://onerecord.iata.org/api/Timemap", alias="@type")
     mementos: "Mementos" = Field(
