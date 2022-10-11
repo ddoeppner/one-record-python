@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from pydantic import Field
 
@@ -1049,7 +1049,7 @@ class BookingTimes(LogisticsObject):
         alias="https://onerecord.iata.org/BookingTimes#timeOfAvailability",
         description="Time of availability of the shipment as per CargoIQ definition",
     )
-    total_transit_time: str = Field(
+    total_transit_time: timedelta = Field(
         default=None,
         alias="https://onerecord.iata.org/BookingTimes#totalTransitTime",
         description="Total transit time as per CargoIQ definition, expressed as a duration",
@@ -2713,10 +2713,10 @@ class TransportMovement(LogisticsObject):
         alias="https://onerecord.iata.org/TransportMovement#transportIdentifier",
         description="Airline flight number, or rail /  truck / maritime line id",
     )
-    transport_means: "TransportMeans" = Field(
+    transported_pieces: "list[Piece]" = Field(
         default=None,
-        alias="https://onerecord.iata.org/TransportMovement#transportMeans",
-        description="Transport means details",
+        alias="https://onerecord.iata.org/TransportMovement#transportedPieces",
+        description="Pieces assigned to the transport segment",
     )
     transported_ulds: "list[ULD]" = Field(
         default=None,
@@ -2808,15 +2808,15 @@ class TransportSegment(LogisticsObject):
         alias="https://onerecord.iata.org/TransportMovement#seal",
         description="Seal identifier",
     )
+    transport_means: "TransportMeans" = Field(
+        default=None,
+        alias="https://onerecord.iata.org/TransportMovement#transportMeans",
+        description="Transport means details",
+    )
     transport_means_operators: "list[Person]" = Field(
         default=None,
         alias="https://onerecord.iata.org/TransportMovement#transportMeansOperators",
         description="Name of the person operating the transport means (e.g. aircraft captain, truck driver)",
-    )
-    transported_pieces: "list[Piece]" = Field(
-        default=None,
-        alias="https://onerecord.iata.org/TransportMovement#transportedPieces",
-        description="Pieces assigned to the transport segment",
     )
 
 
