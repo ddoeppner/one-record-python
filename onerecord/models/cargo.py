@@ -3,6 +3,42 @@ from datetime import datetime, timedelta
 from pydantic import Field
 
 from onerecord.models import Thing
+from onerecord.models.enums import (
+    BookingStatus,
+    ChargePaymentType,
+    ContactContactType,
+    DgRaTypeCode,
+    Direction,
+    Entitlement,
+    EventTypeIndicator,
+    GoodsTypeCode,
+    GoodsTypeExtensionCode,
+    GroundsForExemption,
+    LoadType,
+    ModeCode,
+    ModeQualifier,
+    OtherChargesIndicator,
+    PackageMarkCoded,
+    PartyRole,
+    PersonContactType,
+    PhysicalChemicalForm,
+    RatingsType,
+    RegulatedEntityCategory,
+    RequestType,
+    Salutation,
+    ScreeningMethod,
+    SecurityStatus,
+    SensorType,
+    ServiceabilityCode,
+    ServiceType,
+    ShipmentSecurityStatus,
+    SignatoryRole,
+    SignatureTypeCode,
+    TimeType,
+    TransactionPurposeCode,
+    WaybillType,
+    WeightValuationIndicator,
+)
 
 """
 Ontology: IATA ONE Record Cargo Ontology Version 2.0.0 (2022-05-16)
@@ -132,6 +168,7 @@ class Branch(Thing):
         default=None,
         alias="https://onerecord.iata.org/CompanyBranch#iataCargoAgentLocationIdentifier",
         description="IATA CASS cargo agent 4 digit branch number / location identifier",
+        max_length=4,
     )
 
 
@@ -163,6 +200,7 @@ class Company(Thing):
         default=None,
         alias="https://onerecord.iata.org/Company#iataCargoAgentCode",
         description="IATA accredited cargo agent 7 digit number",
+        max_length=7,
     )
 
 
@@ -205,7 +243,7 @@ class Contact(Thing):
     """
 
     type: list[str] = Field("https://onerecord.iata.org/Contact", alias="@type")
-    contact_type: str = Field(
+    contact_type: "ContactContactType" = Field(
         default=None,
         alias="https://onerecord.iata.org/Contact#contactType",
         description="Type of the contact details, e.g. Phone number, Mail address",
@@ -304,7 +342,7 @@ class Event(Thing):
         alias="https://onerecord.iata.org/Event#eventName",
         description="If no EventCode provided, event name - e.g. Security clearance",
     )
-    event_type_indicator: str = Field(
+    event_type_indicator: "EventTypeIndicator" = Field(
         alias="https://onerecord.iata.org/Event#eventTypeIndicator",
         description="Indicates type of event e.g.  Scheduled, Estimated, Actual",
     )
@@ -436,7 +474,7 @@ class HandlingInstructions(Thing):
         alias="https://onerecord.iata.org/HandlingInstructions#serviceDescription",
         description="Free text description of the handling instructions",
     )
-    service_type: str = Field(
+    service_type: "ServiceType" = Field(
         default=None,
         alias="https://onerecord.iata.org/HandlingInstructions#serviceType",
         description="Refers to the type of handling information provided: Special Service Request (SSR), Special Handling Codes (SPH) or Other Service Information (OSI)",
@@ -521,7 +559,7 @@ class MovementTimes(Thing):
     """
 
     type: list[str] = Field("https://onerecord.iata.org/MovementTimes", alias="@type")
-    direction: str = Field(
+    direction: "Direction" = Field(
         default=None,
         alias="https://onerecord.iata.org/MovementTimes#direction",
         description="Direction to indicate if it's Inbound or Outbound",
@@ -536,7 +574,7 @@ class MovementTimes(Thing):
         alias="https://onerecord.iata.org/MovementTimes#movementTimestamp",
         description="Timestamp (date and time) of the movement time. If the movement time is recorded asynchronously, the timestamp should reflect the actual time, not when the data was created.",
     )
-    time_type: str = Field(
+    time_type: "TimeType" = Field(
         default=None,
         alias="https://onerecord.iata.org/MovementTimes#timeType",
         description="The type of time can be Actual, Estimated ot Scheduled",
@@ -590,7 +628,7 @@ class Party(Thing):
         alias="https://onerecord.iata.org/Party#partyDetails",
         description="Reference to the Company",
     )
-    party_role: str = Field(
+    party_role: "PartyRole" = Field(
         default=None,
         alias="https://onerecord.iata.org/Party#partyRole",
         description="Role fo the Company in the context. Can refer to Code List 1.36 in the CXML Toolkit",
@@ -613,7 +651,7 @@ class Person(Thing):
         alias="https://onerecord.iata.org/Person#contact",
         description="Contact details",
     )
-    contact_type: str = Field(
+    contact_type: "PersonContactType" = Field(
         default=None,
         alias="https://onerecord.iata.org/Person#contactType",
         description="Contact type - e.g. Emergency contact, Customs contact, Customer contact",
@@ -653,7 +691,7 @@ class Person(Thing):
         alias="https://onerecord.iata.org/Person#middleName",
         description="Middle name/ other name",
     )
-    salutation: str = Field(
+    salutation: "Salutation" = Field(
         default=None,
         alias="https://onerecord.iata.org/Person#salutation",
         description="Salutation",
@@ -674,7 +712,7 @@ class RegulatedEntity(Thing):
         alias="https://onerecord.iata.org/RegulatedEntity#expiryDate",
         description="Expiry date 4 digits month/year",
     )
-    regulated_entity_category: str = Field(
+    regulated_entity_category: "RegulatedEntityCategory" = Field(
         default=None,
         alias="https://onerecord.iata.org/RegulatedEntity#regulatedEntityCategory",
         description="Party type - e.g. RA - Regulated Agent, KC - Known Consignor, AO - Aircraft Operator, RC - Regulated Carrier",
@@ -836,7 +874,7 @@ class BookingOption(LogisticsObject):
         alias="https://onerecord.iata.org/BookingOption#bookingSegment",
         description="Booking Segment of the Booking Option",
     )
-    booking_status: str = Field(
+    booking_status: "BookingStatus" = Field(
         default=None,
         alias="https://onerecord.iata.org/BookingOption#bookingStatus",
         description="Status of the Booking with regards to the step in the Sales and Booking process: Quoted, Booked (to be confirmed)",
@@ -916,7 +954,7 @@ class BookingOption(LogisticsObject):
         alias="https://onerecord.iata.org/BookingOption#shipmentDetails",
         description="Details of the shipement that is to be shipped",
     )
-    shipment_security_status: str = Field(
+    shipment_security_status: "ShipmentSecurityStatus" = Field(
         default=None,
         alias="https://onerecord.iata.org/BookingOption#shipmentSecurityStatus",
         description="Indicate the secruty state of the shipment, screened or not",
@@ -971,7 +1009,7 @@ class BookingOptionRequest(LogisticsObject):
         alias="https://onerecord.iata.org/BookingOptionRequest#ratingsPreference",
         description="Ratings preferences of the request",
     )
-    request_type: str = Field(
+    request_type: "RequestType" = Field(
         default=None,
         alias="https://onerecord.iata.org/BookingOptionRequest#requestType",
         description="Identification of the request type: Quote or Booking (to be confirmed)",
@@ -996,7 +1034,7 @@ class BookingOptionRequest(LogisticsObject):
         alias="https://onerecord.iata.org/BookingOptionRequest#shipmentDetails",
         description="Details of the shipement that is to be shipped",
     )
-    shipment_security_status: str = Field(
+    shipment_security_status: "ShipmentSecurityStatus" = Field(
         default=None,
         alias="https://onerecord.iata.org/BookingOptionRequest#shipmentSecurityStatus",
         description="Indicate the security state of the shipment, screened or not",
@@ -1102,11 +1140,13 @@ class Carrier(Company):
         default=None,
         alias="https://onerecord.iata.org/Carrier#airlineCode",
         description="IATA two-character airline code",
+        max_length=2,
     )
     airline_prefix: str = Field(
         default=None,
         alias="https://onerecord.iata.org/Carrier#airlinePrefix",
         description="IATA three-numeric airline prefix number",
+        max_length=3,
     )
     carrier_name: str = Field(
         default=None,
@@ -1242,7 +1282,7 @@ class DgProductRadioactive(LogisticsObject):
     type: list[str] = Field(
         "https://onerecord.iata.org/DgProductRadioactive", alias="@type"
     )
-    dg_ra_type_code: str = Field(
+    dg_ra_type_code: "DgRaTypeCode" = Field(
         default=None,
         alias="https://onerecord.iata.org/DgProductRadioactive#dgRaTypeCode",
         description="The category of the package or all packed in one. Complete text to be transmitted: I-White, II-Yellow, III-Yellow instead of I, II, III",
@@ -1301,7 +1341,7 @@ class DgRadioactiveIsotope(LogisticsObject):
         alias="https://onerecord.iata.org/DgRadioactiveIsotope#lowDispersibleIndicator",
         description="A notation that the material is low dispersible radioactive material.",
     )
-    physical_chemical_form: str = Field(
+    physical_chemical_form: "PhysicalChemicalForm" = Field(
         default=None,
         alias="https://onerecord.iata.org/DgRadioactiveIsotope#physicalChemicalForm",
         description="A description of the physical and chemical form of the material.",
@@ -1354,7 +1394,7 @@ class EpermitSignature(LogisticsObject):
         alias="https://onerecord.iata.org/EpermitSignature#signatoryCompany",
         description="Signatory company name",
     )
-    signatory_role: str = Field(
+    signatory_role: "SignatoryRole" = Field(
         alias="https://onerecord.iata.org/EpermitSignature#signatoryRole",
         description="Role of the signatory with regards to the ePermit: Applicant, Permit issuer, Issuing Authority or Examining authority",
     )
@@ -1367,7 +1407,7 @@ class EpermitSignature(LogisticsObject):
         alias="https://onerecord.iata.org/EpermitSignature#signatureStatement",
         description="Signatory signature authentication text",
     )
-    signature_type_code: str = Field(
+    signature_type_code: "SignatureTypeCode" = Field(
         default=None,
         alias="https://onerecord.iata.org/EpermitSignature#signatureTypeCode",
         description="Code specifying a type of government action such as inspection, detention, fumigation, security.",
@@ -1617,7 +1657,7 @@ class LiveAnimalsEpermit(LogisticsObject):
         alias="https://onerecord.iata.org/LiveAnimalsEpermit#specialConditions",
         description="Special conditions (box 5)",
     )
-    transaction_purpose_code: str = Field(
+    transaction_purpose_code: "TransactionPurposeCode" = Field(
         alias="https://onerecord.iata.org/LiveAnimalsEpermit#transactionPurposeCode",
         description="Code indicating the purpose of the transaction (box 5a)",
     )
@@ -1742,7 +1782,7 @@ class Piece(LogisticsObject):
         alias="https://onerecord.iata.org/Piece#handlingInstructions",
         description="Links to Handling instructions / service requests of the piece",
     )
-    load_type: str = Field(
+    load_type: "LoadType" = Field(
         default=None,
         alias="https://onerecord.iata.org/Piece#loadType",
         description="Specify how the piece will be delivered (bulk or ULD)",
@@ -1767,7 +1807,7 @@ class Piece(LogisticsObject):
         alias="https://onerecord.iata.org/Piece#otherParty",
         description="Other party company details - e.g. the party to be notified",
     )
-    package_mark_coded: str = Field(
+    package_mark_coded: "PackageMarkCoded" = Field(
         default=None,
         alias="https://onerecord.iata.org/Piece#packageMarkCoded",
         description="Reference identifying how the package is marked. Field is hardcode to 'SSCC-18', 'UPC' or 'Other'",
@@ -1970,11 +2010,11 @@ class PieceLiveAnimals(Piece):
         alias="https://onerecord.iata.org/PieceLiveAnimals#exportTradeCountry",
         description="Country of last re-export (box 12a)",
     )
-    goods_type_code: str = Field(
+    goods_type_code: "GoodsTypeCode" = Field(
         alias="https://onerecord.iata.org/PieceLiveAnimals#goodsTypeCode",
         description="Appendix number of the convention (I, II or III) (box 10)",
     )
-    goods_type_extension_code: str = Field(
+    goods_type_extension_code: "GoodsTypeExtensionCode" = Field(
         alias="https://onerecord.iata.org/PieceLiveAnimals#goodsTypeExtensionCode",
         description="Appendix number of the convention (I, II or III) (box 10)",
     )
@@ -2062,6 +2102,7 @@ class Product(LogisticsObject):
     hs_code: str = Field(
         alias="https://onerecord.iata.org/Product#hsCode",
         description="Harmonized Commodity code, refer to hsType used. 6 minimum digits are expected.",
+        min_length=6,
     )
     hs_commodity_description: str = Field(
         alias="https://onerecord.iata.org/Product#hsCommodityDescription",
@@ -2235,7 +2276,7 @@ class Ratings(LogisticsObject):
         alias="https://onerecord.iata.org/Ratings#chargeDescription",
         description="Description of the charge e.g. Airfreight, fuel, etc.",
     )
-    charge_payment_type: list[str] = Field(
+    charge_payment_type: "list[ChargePaymentType]" = Field(
         default=None,
         alias="https://onerecord.iata.org/Ratings#chargePaymentType",
         description="Indicates if charge is prepaid or collect (P, C)",
@@ -2245,7 +2286,7 @@ class Ratings(LogisticsObject):
         alias="https://onerecord.iata.org/Ratings#chargeType",
         description="Type of charge that should match the code expressed in either chargeCode, otherChargeCode or billingChargeIndentifier data properties.",
     )
-    entitlement: str = Field(
+    entitlement: "Entitlement" = Field(
         default=None,
         alias="https://onerecord.iata.org/Ratings#entitlement",
         description="Entitlement code to define if charges are Due carrier (C) or Due agent (A). Refer to CXML Code List 1.3",
@@ -2275,7 +2316,7 @@ class Ratings(LogisticsObject):
         alias="https://onerecord.iata.org/Ratings#ranges",
         description="Reference to the ranges",
     )
-    ratings_type: str = Field(
+    ratings_type: "RatingsType" = Field(
         default=None,
         alias="https://onerecord.iata.org/Ratings#ratingsType",
         description="Used to identify if the Ratings are Face, Published or Actual ratings. Expected values are F, A, C.",
@@ -2409,7 +2450,7 @@ class SecurityDeclaration(LogisticsObject):
         alias="https://onerecord.iata.org/SecurityDeclaration#additionalSecurityInformation",
         description="Any additional information that may be required by an ICAO Member State",
     )
-    grounds_for_exemption: list[str] = Field(
+    grounds_for_exemption: "list[GroundsForExemption]" = Field(
         default=None,
         alias="https://onerecord.iata.org/SecurityDeclaration#groundsForExemption",
         description="Exemption code - e.g. BIOM- Bio-Medical Samples SMUS - small undersized shipments MAIL - mailBIOM - bio-medical samplesDIPL - diplomatic bags or diplomatic mailLFSM - life-saving materials NUCL - nuclear materialsTRNS - transfer or transshipment",
@@ -2446,12 +2487,12 @@ class SecurityDeclaration(LogisticsObject):
         alias="https://onerecord.iata.org/SecurityDeclaration#regulatedEntityIssuer",
         description="Regulated entity issuing the Security Declaration",
     )
-    screening_method: list[str] = Field(
+    screening_method: "list[ScreeningMethod]" = Field(
         default=None,
         alias="https://onerecord.iata.org/SecurityDeclaration#screeningMethod",
         description="Screening methods which have been used to secure the cargoPHS – Physical Inspection and/or hand search VCK - Visual check XRY- X-ray equipment EDS - Explosive detection system EDD - Explosive detection dogsETD - Explosive trace detection equipment - particles or vapor CMD - Cargo metal detectionAOM - Subjected to any other means: this entry should be followed by free text specifying what other mean was used to secure the cargo",
     )
-    security_status: str = Field(
+    security_status: "SecurityStatus" = Field(
         alias="https://onerecord.iata.org/SecurityDeclaration#securityStatus",
         description="Security status indicator (CXML 1.103) - e.g. SPX- Cargo Secure for Passenger and All-Cargo Aircraft",
     )
@@ -2482,7 +2523,7 @@ class Sensor(LogisticsObject):
         alias="https://onerecord.iata.org/Sensor#sensorSerialNumber",
         description="Serial number that allows to uniquely identify the sensor",
     )
-    sensor_type: str = Field(
+    sensor_type: "SensorType" = Field(
         default=None,
         alias="https://onerecord.iata.org/Sensor#sensorType",
         description="Type of sensor as described in Interactive Cargo Recommended Practice",
@@ -2589,7 +2630,7 @@ class Shipment(LogisticsObject):
         alias="https://onerecord.iata.org/Shipment#insurance",
         description="Insurance details",
     )
-    other_charges_indicator: str = Field(
+    other_charges_indicator: "OtherChargesIndicator" = Field(
         default=None,
         alias="https://onerecord.iata.org/Shipment#otherChargesIndicator",
         description="payment of Other Charges will be made at origin (prepaid) or at destination (collect)",
@@ -2617,7 +2658,7 @@ class Shipment(LogisticsObject):
         alias="https://onerecord.iata.org/Shipment#volumetricWeight",
         description="Volumetric weight details",
     )
-    weight_valuation_indicator: str = Field(
+    weight_valuation_indicator: "WeightValuationIndicator" = Field(
         default=None,
         alias="https://onerecord.iata.org/Shipment#weightValuationIndicator",
         description="payment for the Weight/Valuation will be made at origin (prepaid) or at destination (collect)",
@@ -2788,12 +2829,12 @@ class TransportSegment(LogisticsObject):
         alias="https://onerecord.iata.org/TransportMovement#fuelType",
         description="e.g. Kerosene, Diesel, SAF, Electricity [renewable], Electricity [non-renewable]",
     )
-    mode_code: str = Field(
+    mode_code: "ModeCode" = Field(
         default=None,
         alias="https://onerecord.iata.org/TransportMovement#modeCode",
         description="Mode of transport code, refer to UNECE Rec. 19https://unece.org/fileadmin/DAM/cefact/recommendations/rec19/rec19_01cf19e.pdf",
     )
-    mode_qualifier: str = Field(
+    mode_qualifier: "ModeQualifier" = Field(
         default=None,
         alias="https://onerecord.iata.org/TransportMovement#modeQualifier",
         description="Pre-Carriage, Main-Carriage or On-Carriage",
@@ -2884,7 +2925,7 @@ class ULD(LogisticsObject):
         alias="https://onerecord.iata.org/ULD#serialNumber",
         description="ULD serial number",
     )
-    serviceability_code: str = Field(
+    serviceability_code: "ServiceabilityCode" = Field(
         alias="https://onerecord.iata.org/ULD#serviceabilityCode",
         description="Designator of serviceablity condition e.g. SER or DAM",
     )
@@ -3006,13 +3047,15 @@ class Waybill(LogisticsObject):
     waybill_number: str = Field(
         alias="https://onerecord.iata.org/Waybill#waybillNumber",
         description="House or Master Waybill unique identifier",
+        regex="^[0-9]+$",
     )
     waybill_prefix: str = Field(
         default=None,
         alias="https://onerecord.iata.org/Waybill#waybillPrefix",
         description="Prefix used for the Waybill Number. Refer to IATA Airlines Codes",
+        max_length=3,
     )
-    waybill_type: str = Field(
+    waybill_type: "WaybillType" = Field(
         default=None,
         alias="https://onerecord.iata.org/Waybill#waybillType",
         description="Type of the Waybill: House, Direct or Master",

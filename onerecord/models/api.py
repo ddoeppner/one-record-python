@@ -2,13 +2,13 @@ from datetime import datetime
 
 from pydantic import Field, PositiveInt
 
-from onerecord.enums import (
+from onerecord.models import Thing
+from onerecord.models.cargo import Branch, Company, LogisticsObject
+from onerecord.models.enums import (
     ChangeRequestStatus,
     LogisticsObjectType,
     NotificationEventType,
 )
-from onerecord.models import Thing
-from onerecord.models.cargo import Branch, Company, LogisticsObject
 
 """
 Ontology: IATA ONE Record API Ontology Version 1.1 (2021-04-20)

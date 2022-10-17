@@ -5,10 +5,10 @@ import pytest
 import requests_mock
 
 from onerecord.client import ONERecordClient
-from onerecord.enums import LogisticsObjectType, NotificationEventType
 from onerecord.exceptions import ONERecordClientException
 from onerecord.models.api import Notification
 from onerecord.models.cargo import Event, LogisticsObject, Piece
+from onerecord.models.enums import LogisticsObjectType, NotificationEventType
 
 
 def text_create_piece_callback(request, context):

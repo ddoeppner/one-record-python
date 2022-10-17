@@ -4,10 +4,10 @@ from typing import Optional
 
 import requests
 
-from onerecord.enums import LogisticsObjectType
 from onerecord.exceptions import ONERecordClientException
 from onerecord.models.api import Notification, PatchRequest
 from onerecord.models.cargo import Event, LogisticsObject
+from onerecord.models.enums import LogisticsObjectType
 from onerecord.utils import (
     generate_patch_request,
     json_to_events,

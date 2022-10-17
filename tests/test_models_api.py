@@ -1,8 +1,8 @@
 import pytest
 from pydantic import ValidationError
 
-from onerecord.enums import LogisticsObjectType, NotificationEventType
 from onerecord.models.api import Notification, Subscription
+from onerecord.models.enums import LogisticsObjectType, NotificationEventType
 
 
 def test_create_notification():

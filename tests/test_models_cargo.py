@@ -1,8 +1,11 @@
+import datetime
+
 import pytest
 from pydantic import ValidationError
 
-from onerecord.enums import LogisticsObjectType, NotificationEventType
 from onerecord.models.api import Notification, Subscription
+from onerecord.models.cargo import Location, Waybill
+from onerecord.models.enums import LogisticsObjectType, NotificationEventType
 
 
 def test_create_piece():
@@ -37,3 +40,33 @@ def test_create_shipment():
     assert subscription is not None
     assert subscription.topic == LogisticsObjectType.PIECE.value
     assert subscription.id is None
+
+
+def test_create_waybill():
+    with pytest.raises(ValidationError):
+        Waybill(
+            company_identifier="cgnbeerbrewery",
+            carrier_declaration_date=datetime.datetime.now(),
+            carrier_declaration_place=Location(code="CGN"),
+            carrier_declaration_signature="Benjamin Braeu",
+            waybill_number="12345",
+            waybill_prefix="1234",
+        )
+    with pytest.raises(ValidationError):
+        Waybill(
+            company_identifier="cgnbeerbrewery",
+            carrier_declaration_date=datetime.datetime.now(),
+            carrier_declaration_place=Location(code="CGN"),
+            carrier_declaration_signature="Benjamin Braeu",
+            waybill_number="abc",
+            waybill_prefix="1234",
+        )
+    waybill: Waybill = Waybill(
+        company_identifier="cgnbeerbrewery",
+        carrier_declaration_date=datetime.datetime.now(),
+        carrier_declaration_place=Location(code="CGN"),
+        carrier_declaration_signature="Benjamin Braeu",
+        waybill_number="12345",
+        waybill_prefix="111",
+    )
+    assert waybill.company_identifier is not None
