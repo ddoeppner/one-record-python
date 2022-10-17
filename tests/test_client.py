@@ -31,7 +31,7 @@ def text_pieces_callback(request, context):
 
 def text_piece_events_callback(request, context):
     context.status_code = 200
-    return '[{"@id":"http://localhost:8080/companies/test/los/piece-1260233867/event-1150940089","@type":["https://onerecord.iata.org/Event"],"https://onerecord.iata.org/Event#dateTime":"2022-10-10T19:49:10Z","https://onerecord.iata.org/Event#linkedObject":{"@id":"http://localhost:8080/companies/test/los/piece-1260233867","@type":["https://onerecord.iata.org/Piece","https://onerecord.iata.org/LogisticsObject"],"https://onerecord.iata.org/LogisticsObject#companyIdentifier":"test"},"https://onerecord.iata.org/Event#eventTypeIndicator":"FSU","https://onerecord.iata.org/Event#eventCode":"FOH","https://onerecord.iata.org/Event#eventName":"Freight on Hand"}]'
+    return '[{"@id":"http://localhost:8080/companies/test/los/piece-1260233867/event-1150940089","@type":["https://onerecord.iata.org/Event"],"https://onerecord.iata.org/Event#dateTime":"2022-10-10T19:49:10Z","https://onerecord.iata.org/Event#linkedObject":{"@id":"http://localhost:8080/companies/test/los/piece-1260233867","@type":["https://onerecord.iata.org/Piece","https://onerecord.iata.org/LogisticsObject"],"https://onerecord.iata.org/LogisticsObject#companyIdentifier":"test"},"https://onerecord.iata.org/Event#eventTypeIndicator":"Actual","https://onerecord.iata.org/Event#eventCode":"FOH","https://onerecord.iata.org/Event#eventName":"Freight on Hand"}]'
 
 
 class TestONERecordClient(unittest.TestCase):
@@ -139,7 +139,7 @@ class TestONERecordClient(unittest.TestCase):
 
         event: Event = Event(
             **{
-                "event_type_indicator": "FSU",
+                "event_type_indicator": "Actual",
                 "event_code": "FOH",
                 "event_name": "Freight on Hand",
                 "linked_object": {
